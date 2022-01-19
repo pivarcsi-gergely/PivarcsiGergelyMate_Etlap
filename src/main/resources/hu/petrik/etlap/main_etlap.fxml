@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,61 +11,48 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="515.0"
-      spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="hu.petrik.etlap.MainController">
+<VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="515.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.petrik.etlap.MainController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="120.0" prefWidth="490.0">
+    <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="490.0">
         <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Adatok kezelése">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                <Button fx:id="AddBtn" layoutX="45.0" layoutY="1.0" maxHeight="-Infinity"
-                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                        mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0"
-                        text="Új étel felvétele"/>
-                <Button fx:id="DeleteBtn" layoutX="45.0" layoutY="65.0" maxHeight="-Infinity"
-                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                        mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Törlés"/>
+                <Button fx:id="AddBtn" layoutX="45.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Új étel felvétele" />
+                <Button fx:id="DeleteBtn" layoutX="45.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Törlés" />
             </AnchorPane>
         </TitledPane>
     </HBox>
-    <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                prefHeight="100.0" prefWidth="490.0" text="Áremelés">
+    <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="490.0" text="Áremelés">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <padding>
-                <Insets bottom="10.0"/>
+                <Insets bottom="10.0" />
             </padding>
-            <Spinner fx:id="szazalekEmeloSpinner" layoutY="2.0"/>
-            <Spinner fx:id="FtEmeloSpinner" layoutY="25.0" AnchorPane.bottomAnchor="0.0"/>
+            <Spinner fx:id="szazalekEmeloSpinner" layoutY="2.0" />
+            <Spinner fx:id="FtEmeloSpinner" layoutY="25.0" AnchorPane.bottomAnchor="0.0" />
             <Label layoutX="149.0" layoutY="43.0" text="Ft">
                 <padding>
-                    <Insets left="3.0"/>
+                    <Insets left="3.0" />
                 </padding>
             </Label>
             <Label layoutX="149.0" layoutY="6.0" text="\%">
                 <padding>
-                    <Insets left="3.0"/>
+                    <Insets left="3.0" />
                 </padding>
             </Label>
-            <Button fx:id="SzazalekEmeloBtrn" layoutX="170.0" layoutY="2.0" mnemonicParsing="false"
-                    text="Emelés (%)"/>
-            <Button fx:id="FtEmeloBtn" layoutX="170.0" layoutY="39.0" mnemonicParsing="false"
-                    text="Emelés (Ft)"/>
+            <Button fx:id="SzazalekEmeloBtrn" layoutX="170.0" layoutY="2.0" mnemonicParsing="false" text="Emelés (%)" />
+            <Button fx:id="FtEmeloBtn" layoutX="170.0" layoutY="39.0" mnemonicParsing="false" text="Emelés (Ft)" />
         </AnchorPane>
     </TitledPane>
-    <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-               prefHeight="250.0" prefWidth="490.0">
+    <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="490.0">
       <columns>
-          <TableColumn fx:id="colNev" prefWidth="220.0" text="Név"/>
-          <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória"/>
-          <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár"/>
+          <TableColumn fx:id="colNev" prefWidth="220.0" text="Név" />
+          <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória" />
+          <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár" />
       </columns>
         <VBox.margin>
-          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+          <Insets left="10.0" right="10.0" top="10.0" />
         </VBox.margin>
     </TableView>
-    <ListView fx:id="leirasLV" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-              prefHeight="150.0" prefWidth="490.0"/>
+   <Label fx:id="leirasLbl" text="Adott étel leírása" />
 </VBox>
