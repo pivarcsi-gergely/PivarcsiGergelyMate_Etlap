@@ -28,5 +28,7 @@ public class MainController {
     @FXML
     private Spinner szazalekEmeloSpinner;
 
+    public void initialize() {
 
+    }
 }
