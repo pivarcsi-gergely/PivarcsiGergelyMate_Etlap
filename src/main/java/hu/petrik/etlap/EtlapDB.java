@@ -27,4 +27,22 @@ public class EtlapDB {
         }
         return etlapList;
     }
+
+    public int etelHozzaadasa(String nev, String leiras, int ar, String kategoria) throws SQLException {
+        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria) VALUES (?,?,?,?)";
+        PreparedStatement pStmt = dbConn.prepareStatement(sql);
+        pStmt.setString(1, nev);
+        pStmt.setString(2, leiras);
+        pStmt.setInt(3, ar);
+        pStmt.setString(4, kategoria);
+        return pStmt.executeUpdate();
+    }
+
+    public boolean etelTorlese(int id) throws SQLException {
+        String sql = "DELETE FROM etlap WHERE id = ?";
+        PreparedStatement pStmt = dbConn.prepareStatement(sql);
+        pStmt.setInt(1, id);
+        int erintettSorok = pStmt.executeUpdate();
+        return erintettSorok == 1;
+    }
 }
