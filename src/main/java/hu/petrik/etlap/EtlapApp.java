@@ -12,7 +12,7 @@ public class EtlapApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(EtlapApp.class.getResource("main_etlap.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 515, 740);
-        stage.setTitle("Hello!");
+        stage.setTitle("Étlap");
         stage.setScene(scene);
         stage.show();
     }
