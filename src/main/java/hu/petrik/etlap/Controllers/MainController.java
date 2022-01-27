@@ -2,6 +2,7 @@ package hu.petrik.etlap.Controllers;
 
 import hu.petrik.etlap.Controller;
 import hu.petrik.etlap.Etlap;
+import hu.petrik.etlap.EtlapApp;
 import hu.petrik.etlap.EtlapDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,5 +112,28 @@ public class MainController extends Controller {
         int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
         db.etelNovelForint(ft, selectedIndex);
         etlapListaFeltolt();
+    }
+
+    public void onDeleteClicked(ActionEvent actionEvent) throws SQLException {
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1){
+            alert("Nem tudod a semmit kitörölni");
+            return;
+        }
+
+        Etlap torlendoEtel = EtlapTable.getSelectionModel().getSelectedItem();
+        if (!confirm("Biztosan törölni szeretnéd ezt az ételt:" + torlendoEtel.getNev() + "?")){
+            return;
+        }
+        else {
+            try {
+                db.etelTorlese(selectedIndex);
+                alert("Sikeres törlés");
+                etlapListaFeltolt();
+            }
+            catch (SQLException e) {
+                alert("Sikertelen törlés");
+            }
+        }
     }
 }
