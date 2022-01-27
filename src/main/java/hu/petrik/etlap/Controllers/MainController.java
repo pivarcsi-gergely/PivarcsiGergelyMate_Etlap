@@ -90,7 +90,26 @@ public class MainController extends Controller {
             alert("0 vagy annál kisebb értékkel nem tudod növelni az árat");
             return;
         }
-        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
         db.etelNovelSzazalek(szazalek, selectedIndex);
+        etlapListaFeltolt();
+    }
+
+    public void onFtClicked(ActionEvent actionEvent) throws SQLException {
+        int ft = 0;
+        try{
+            ft = FtEmeloSpinner.getValue();
+        }
+        catch (NullPointerException e){
+            alert("Nem lehet üres értékkel árat növelni");
+            return;
+        }
+        catch (Exception e) {
+            alert("0 vagy annál kisebb értékkel nem tudod növelni az árat");
+            return;
+        }
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
+        db.etelNovelForint(ft, selectedIndex);
+        etlapListaFeltolt();
     }
 }

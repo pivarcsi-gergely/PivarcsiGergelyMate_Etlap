@@ -50,27 +50,37 @@ public class EtlapDB {
     }
 
     public int etelNovelSzazalek(int szazalek, int selectedIndex) throws SQLException {
-        String sqlOsszes = "UPDATE etlap SET ar = ar * ?";
-        String sqlEgyedi = "UPDATE etlap SET ar = ar * ? WHERE id = ?";
-
-        PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
-        PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
-
-        pStmtOsszes.setInt(1, szazalek);
-        pStmtEgyedi.setInt(1, szazalek);
-        pStmtEgyedi.setInt(2, selectedIndex);
-
-        if (selectedIndex == -1) {
+        if (selectedIndex == 0) {
+            String sqlOsszes = "UPDATE etlap SET ar = ar + ar * (?/100)";
+            PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
+            pStmtOsszes.setInt(1, szazalek);
             int sikeresEOsszes = pStmtOsszes.executeUpdate();
             return sikeresEOsszes;
         }
         else {
-            int sikeresEEgyedi = pStmtOsszes.executeUpdate();
+            String sqlEgyedi = "UPDATE etlap SET ar = ar + ar * (?/100) WHERE id = ?";
+            PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
+            pStmtEgyedi.setInt(1, szazalek);
+            pStmtEgyedi.setInt(2, selectedIndex);
+            int sikeresEEgyedi = pStmtEgyedi.executeUpdate();
             return sikeresEEgyedi;
         }
     }
 
-    public void etelNovelForint(int forintErtek, int selectedIndex) throws SQLException {
-
-    }
+    public int etelNovelForint(int forintErtek, int selectedIndex) throws SQLException {
+        if (selectedIndex == 0) {
+            String sqlOsszes = "UPDATE etlap SET ar = ar + ?";
+            PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
+            pStmtOsszes.setInt(1, forintErtek);
+            int sikeresEOsszes = pStmtOsszes.executeUpdate();
+            return sikeresEOsszes;
+        }
+        else {
+            String sqlEgyedi = "UPDATE etlap SET ar = ar + ? WHERE id = ?";
+            PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
+            pStmtEgyedi.setInt(1, forintErtek);
+            pStmtEgyedi.setInt(2, selectedIndex);
+            int sikeresEEgyedi = pStmtEgyedi.executeUpdate();
+            return sikeresEEgyedi;
+        }    }
 }
