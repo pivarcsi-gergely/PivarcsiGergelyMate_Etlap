@@ -31,13 +31,13 @@
             </padding>
             <Spinner fx:id="szazalekEmeloSpinner" layoutY="2.0">
                 <valueFactory>
-                    <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="2147483647" min="1" />
+                    <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="5" />
                     <!-- -->
                 </valueFactory>
             </Spinner>
             <Spinner fx:id="FtEmeloSpinner" layoutY="25.0" AnchorPane.bottomAnchor="0.0">
                 <valueFactory>
-                    <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="1" initialValue="1" max="2147483647" min="1" />
+                    <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="50" initialValue="50" max="3000" min="50" />
                 </valueFactory>
             </Spinner>
             <Label layoutX="149.0" layoutY="43.0" text="Ft">
