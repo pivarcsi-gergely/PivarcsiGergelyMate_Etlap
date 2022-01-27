@@ -114,9 +114,9 @@ public class MainController extends Controller {
         etlapListaFeltolt();
     }
 
-    public void onDeleteClicked(ActionEvent actionEvent) throws SQLException {
-        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex == -1){
+    public void onDeleteClicked(ActionEvent actionEvent) {
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
+        if (selectedIndex == 0){
             alert("Nem tudod a semmit kitörölni");
             return;
         }
