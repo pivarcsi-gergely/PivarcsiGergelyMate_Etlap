@@ -48,4 +48,29 @@ public class EtlapDB {
         int erintettSorok = pStmt.executeUpdate();
         return erintettSorok == 1;
     }
+
+    public int etelNovelSzazalek(int szazalek, int selectedIndex) throws SQLException {
+        String sqlOsszes = "UPDATE etlap SET ar = ar * ?";
+        String sqlEgyedi = "UPDATE etlap SET ar = ar * ? WHERE id = ?";
+
+        PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
+        PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
+
+        pStmtOsszes.setInt(1, szazalek);
+        pStmtEgyedi.setInt(1, szazalek);
+        pStmtEgyedi.setInt(2, selectedIndex);
+
+        if (selectedIndex == -1) {
+            int sikeresEOsszes = pStmtOsszes.executeUpdate();
+            return sikeresEOsszes;
+        }
+        else {
+            int sikeresEEgyedi = pStmtOsszes.executeUpdate();
+            return sikeresEEgyedi;
+        }
+    }
+
+    public void etelNovelForint(int forintErtek, int selectedIndex) throws SQLException {
+
+    }
 }
