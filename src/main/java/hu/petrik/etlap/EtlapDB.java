@@ -15,7 +15,7 @@ public class EtlapDB {
         List<Etlap> etlapList = new ArrayList<>();
 
         Statement stmt = dbConn.createStatement();
-        String sql = "SELECT * FROM etlapList";
+        String sql = "SELECT * FROM etlap";
         ResultSet result = stmt.executeQuery(sql);
 
         while (result.next()) {

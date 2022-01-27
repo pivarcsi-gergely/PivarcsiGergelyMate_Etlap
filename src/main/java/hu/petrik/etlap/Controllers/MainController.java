@@ -6,6 +6,7 @@ import hu.petrik.etlap.EtlapDB;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,8 +36,8 @@ public class MainController extends Controller {
     private Spinner szazalekEmeloSpinner;
     @FXML
     private Label leirasLbl;
-
     private EtlapDB db;
+    private List<Etlap> etlapList;
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
@@ -50,17 +51,26 @@ public class MainController extends Controller {
         }
     }
 
-    private void etlapListaFeltolt() {
+    public void etlapListaFeltolt() {
         try {
-            List<Etlap> etlapList = db.getEtlap();
-            etlapList.clear();
-            for (Etlap etlap :
-                    etlapList) {
-                etlapList.add(etlap);
+            etlapList = db.getEtlap();
+            EtlapTable.getItems().clear();
+            for (Etlap etlap: etlapList) {
+                EtlapTable.getItems().add(etlap);
             }
         }
         catch (SQLException e){
             hibaKiir(e);
+        }
+    }
+
+    public void onRowClick(MouseEvent mouseEvent) {
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1){
+            alert("Válassz ki egy sort");
+        }
+        else {
+            leirasLbl.setText("Leírás: " + etlapList.get(selectedIndex).getLeiras());
         }
     }
 }
