@@ -111,8 +111,8 @@ public class MainController extends Controller {
     }
 
     public void onDeleteClicked(ActionEvent actionEvent) {
-        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
-        if (selectedIndex == 0) {
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
             alert("Nem tudod a semmit kitörölni");
             return;
         }
@@ -122,7 +122,7 @@ public class MainController extends Controller {
             return;
         } else {
             try {
-                db.etelTorlese(selectedIndex);
+                db.etelTorlese(torlendoEtel.getId());
                 alert("Sikeres törlés");
                 etlapListaFeltolt();
             } catch (SQLException e) {
