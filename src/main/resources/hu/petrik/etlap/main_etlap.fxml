@@ -19,7 +19,7 @@
     <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="490.0">
         <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Adatok kezelése">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                <Button fx:id="AddBtn" layoutX="45.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Új étel felvétele" />
+                <Button fx:id="AddBtn" layoutX="45.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onInsertEtelClicked" prefHeight="30.0" prefWidth="110.0" text="Új étel felvétele" />
                 <Button fx:id="DeleteBtn" layoutX="45.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDeleteClicked" prefHeight="30.0" prefWidth="110.0" text="Törlés" />
             </AnchorPane>
         </TitledPane>
