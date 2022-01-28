@@ -118,7 +118,7 @@ public class MainController extends Controller {
         }
 
         Etlap torlendoEtel = EtlapTable.getSelectionModel().getSelectedItem();
-        if (!confirm("Biztosan törölni szeretnéd ezt az ételt:" + torlendoEtel.getNev() + "?")) {
+        if (!confirm("Biztosan törölni szeretnéd ezt az ételt: " + torlendoEtel.getNev() + "?")) {
             return;
         } else {
             try {
