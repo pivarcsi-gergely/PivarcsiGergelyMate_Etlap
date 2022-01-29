@@ -2,8 +2,8 @@ package hu.petrik.etlap.Controllers;
 
 import hu.petrik.etlap.Controller;
 import hu.petrik.etlap.Etlap;
-import hu.petrik.etlap.EtlapApp;
 import hu.petrik.etlap.EtlapDB;
+import hu.petrik.etlap.Kategoria;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,11 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class MainController extends Controller {
-
     @FXML
     private Button AddBtn;
     @FXML
@@ -40,18 +39,27 @@ public class MainController extends Controller {
     private TableColumn<Etlap, String> colKategoria;
 
     @FXML
+    public TableView<Kategoria> KategoriaTable;
+    @FXML
+    public TableColumn<Kategoria, String> colKategoriaNev;
+
+    @FXML
     private Label leirasLbl;
 
     private EtlapDB db;
     private List<Etlap> etlapList;
+    private HashSet<Kategoria> kategoriaHashSet;
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
         colKategoria.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
         colAr.setCellValueFactory(new PropertyValueFactory<>("ar"));
+
+        colKategoriaNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
         try {
             db = new EtlapDB();
             etlapListaFeltolt();
+            kategoriaListaFeltolt();
         } catch (SQLException e) {
             hibaKiir(e);
         }
@@ -65,6 +73,20 @@ public class MainController extends Controller {
                 EtlapTable.getItems().add(etlap);
             }
         } catch (SQLException e) {
+            hibaKiir(e);
+        }
+    }
+
+    public void kategoriaListaFeltolt() {
+        try {
+            kategoriaHashSet = db.getKategoria();
+            KategoriaTable.getItems().clear();
+            for (Kategoria kategoria: kategoriaHashSet) {
+                KategoriaTable.getItems().add(kategoria);
+            }
+
+        }
+        catch (SQLException e) {
             hibaKiir(e);
         }
     }

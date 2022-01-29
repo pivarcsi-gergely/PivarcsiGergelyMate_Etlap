@@ -82,9 +82,9 @@
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <TableView prefHeight="260.0" prefWidth="490.0">
+                     <TableView fx:id="KategoriaTable" prefHeight="260.0" prefWidth="490.0">
                        <columns>
-                         <TableColumn minWidth="30.0" prefWidth="490.0" text="Kategóriák" />
+                         <TableColumn fx:id="colKategoriaNev" minWidth="30.0" prefWidth="490.0" text="Kategóriák" />
                        </columns>
                      </TableView>
                   </children></AnchorPane>

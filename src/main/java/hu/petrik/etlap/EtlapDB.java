@@ -16,17 +16,20 @@ public class EtlapDB {
     public List<Etlap> getEtlap() throws SQLException {
         List<Etlap> etlapList = new ArrayList<>();
         Statement etlapStmt = dbConn.createStatement();
+        Statement katStmt = dbConn.createStatement();
         String etlapSql = "SELECT * FROM etlap";
+        String katSql = "SELECT * FROM kategoria";
         ResultSet etlapResult = etlapStmt.executeQuery(etlapSql);
+        ResultSet katResult = katStmt.executeQuery(katSql);
 
-        while (etlapResult.next()) {
+        while (etlapResult.next() && katResult.next()) {
             int id = etlapResult.getInt("id");
             String nev = etlapResult.getString("nev");
             String leiras = etlapResult.getString("leiras");
             int ar = etlapResult.getInt("ar");
-            int kategoria_id = etlapResult.getInt("kategoria_id");
+            String kategoria = katResult.getString("nev");
 
-            Etlap etlap = new Etlap(id, nev, leiras, ar, kategoria_id);
+            Etlap etlap = new Etlap(id, nev, leiras, ar, kategoria);
             etlapList.add(etlap);
         }
         return etlapList;
