@@ -2,6 +2,8 @@ package hu.petrik.etlap;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class EtlapDB {
@@ -13,22 +15,37 @@ public class EtlapDB {
 
     public List<Etlap> getEtlap() throws SQLException {
         List<Etlap> etlapList = new ArrayList<>();
+        Statement etlapStmt = dbConn.createStatement();
+        String etlapSql = "SELECT * FROM etlap";
+        ResultSet etlapResult = etlapStmt.executeQuery(etlapSql);
 
-        Statement stmt = dbConn.createStatement();
-        String sql = "SELECT * FROM etlap";
-        ResultSet result = stmt.executeQuery(sql);
+        while (etlapResult.next()) {
+            int id = etlapResult.getInt("id");
+            String nev = etlapResult.getString("nev");
+            String leiras = etlapResult.getString("leiras");
+            int ar = etlapResult.getInt("ar");
+            int kategoria_id = etlapResult.getInt("kategoria_id");
 
-        while (result.next()) {
-            int id = result.getInt("id");
-            String nev = result.getString("nev");
-            String leiras = result.getString("leiras");
-            int ar = result.getInt("ar");
-            String kategoria = result.getString("kategoria");
-
-            Etlap etlap = new Etlap(id, nev, leiras, ar, kategoria);
+            Etlap etlap = new Etlap(id, nev, leiras, ar, kategoria_id);
             etlapList.add(etlap);
         }
         return etlapList;
+    }
+
+    public HashSet<Kategoria> getKategoria() throws SQLException {
+        HashSet<Kategoria> kategoriaHashSet = new HashSet<>();
+        Statement katStmt = dbConn.createStatement();
+        String katSql = "SELECT * FROM kategoria";
+        ResultSet katResult = katStmt.executeQuery(katSql);
+
+        while (katResult.next()) {
+            int id = katResult.getInt("id");
+            String katNev = katResult.getString("nev");
+
+            Kategoria kategoria = new Kategoria(id, katNev);
+            kategoriaHashSet.add(kategoria);
+        }
+        return kategoriaHashSet;
     }
 
     public int etelHozzaadasa(String nev, String leiras, int ar, String kategoria) throws SQLException {
