@@ -36,7 +36,7 @@ public class MainController extends Controller {
     @FXML
     private TableColumn<Etlap, Integer> colAr;
     @FXML
-    private TableColumn<Etlap, String> colKategoria;
+    private TableColumn<Etlap, Kategoria> colKategoria;
 
     @FXML
     public TableView<Kategoria> KategoriaTable;
@@ -56,8 +56,10 @@ public class MainController extends Controller {
         colAr.setCellValueFactory(new PropertyValueFactory<>("ar"));
 
         colKategoriaNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
+
         try {
             db = new EtlapDB();
+            Kategoria.initalize(db);
             etlapListaFeltolt();
             kategoriaListaFeltolt();
         } catch (SQLException e) {
@@ -78,17 +80,13 @@ public class MainController extends Controller {
     }
 
     public void kategoriaListaFeltolt() {
-        try {
-            kategoriaHashSet = db.getKategoria();
-            KategoriaTable.getItems().clear();
-            for (Kategoria kategoria: kategoriaHashSet) {
-                KategoriaTable.getItems().add(kategoria);
-            }
+        kategoriaHashSet = Kategoria.getKategoriaHashSet();
+        KategoriaTable.getItems().clear();
+        for (Kategoria kategoria : kategoriaHashSet) {
+            KategoriaTable.getItems().add(kategoria);
+        }
 
-        }
-        catch (SQLException e) {
-            hibaKiir(e);
-        }
+
     }
 
     public void onRowClick(MouseEvent mouseEvent) {
@@ -158,8 +156,7 @@ public class MainController extends Controller {
             Controller insertAblak = ujAblak("create_etlap.fxml", "Étel hozzáadása", 300, 200);
             insertAblak.getStage().setOnCloseRequest(windowEvent -> etlapListaFeltolt());
             insertAblak.getStage().show();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             hibaKiir(e);
         }
     }

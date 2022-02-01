@@ -5,14 +5,30 @@ public class Etlap {
     private String nev;
     private String leiras;
     private int ar;
-    private String kategoria;
+    private Kategoria kategoria;
 
-    public Etlap(int id, String nev, String leiras, int ar, String kategoria) {
+    public Etlap(int id, String nev, String leiras, int ar, Kategoria kategoria) {
         this.id = id;
         this.nev = nev;
         this.leiras = leiras;
         this.ar = ar;
         this.kategoria = kategoria;
+    }
+
+    public Etlap(int id, String nev, String leiras, int ar, String katNev) {
+        this.id = id;
+        this.nev = nev;
+        this.leiras = leiras;
+        this.ar = ar;
+        this.kategoria = Kategoria.fromNev(katNev);
+    }
+
+    public Etlap(int id, String nev, String leiras, int ar, int katId) {
+        this.id = id;
+        this.nev = nev;
+        this.leiras = leiras;
+        this.ar = ar;
+        this.kategoria = Kategoria.fromId(katId);
     }
 
     public int getId() {
@@ -47,11 +63,15 @@ public class Etlap {
         this.ar = ar;
     }
 
-    public String getKategoria() {
+    public Kategoria getKategoria() {
         return kategoria;
     }
 
-    public void setKategoria(String kategoria) {
+    public String getKategoriaNev() {
+        return kategoria.getNev();
+    }
+
+    public void setKategoria(Kategoria kategoria) {
         this.kategoria = kategoria;
     }
 }

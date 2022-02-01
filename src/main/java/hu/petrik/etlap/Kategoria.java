@@ -1,8 +1,29 @@
 package hu.petrik.etlap;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
+
 public class Kategoria {
     private int id;
     private String nev;
+    static private HashSet<Kategoria> kategoriaHashSet;
+
+    public static void initalize(EtlapDB etlapDB) throws SQLException {
+        Connection conn = etlapDB.dbConn;
+        kategoriaHashSet = new HashSet<>();
+        Statement katStmt = conn.createStatement();
+        String katSql = "SELECT * FROM kategoria";
+        ResultSet katResult = katStmt.executeQuery(katSql);
+
+        while (katResult.next()) {
+            Kategoria kategoria = new Kategoria(katResult.getInt("id"),
+                                                katResult.getString("nev"));
+            kategoriaHashSet.add(kategoria);
+        }
+    }
 
     public Kategoria(int id, String nev) {
         this.id = id;
@@ -12,13 +33,33 @@ public class Kategoria {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public String getNev() {
         return nev;
     }
+
     public void setNev(String nev) {
         this.nev = nev;
+    }
+
+    static public Kategoria fromId(int id) {
+        return kategoriaHashSet.stream().filter(kategoria -> kategoria.id == id).findFirst().get();
+    }
+
+    static public Kategoria fromNev(String nev) {
+        return kategoriaHashSet.stream().filter(kategoria -> kategoria.nev.equals(nev)).findFirst().get();
+    }
+
+    static public HashSet<Kategoria> getKategoriaHashSet() {
+        return Kategoria.kategoriaHashSet;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNev();
     }
 }
