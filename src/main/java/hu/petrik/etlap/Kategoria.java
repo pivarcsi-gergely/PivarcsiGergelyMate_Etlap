@@ -1,18 +1,16 @@
 package hu.petrik.etlap;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashSet;
 
 public class Kategoria {
     private int id;
     private String nev;
     static private HashSet<Kategoria> kategoriaHashSet;
+    static Connection conn;
 
     public static void initalize(EtlapDB etlapDB) throws SQLException {
-        Connection conn = etlapDB.dbConn;
+        conn = etlapDB.dbConn;
         kategoriaHashSet = new HashSet<>();
         Statement katStmt = conn.createStatement();
         String katSql = "SELECT * FROM kategoria";

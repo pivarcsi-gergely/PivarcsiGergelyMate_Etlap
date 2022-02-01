@@ -20,12 +20,7 @@ public class EtlapDB {
         ResultSet result = stmt.executeQuery(sql);
 
         while (result.next()) {
-            Etlap etlap = new Etlap(result.getInt("id"),
-                                    result.getString("nev"),
-                                    result.getString("leiras"),
-                                    result.getInt("ar"),
-                                    Kategoria.fromId(result.getInt("kategoria_id"))
-            );
+            Etlap etlap = new Etlap(result.getInt("id"), result.getString("nev"), result.getString("leiras"), result.getInt("ar"), Kategoria.fromId(result.getInt("kategoria_id")));
             etlapList.add(etlap);
         }
         return etlapList;
@@ -56,8 +51,7 @@ public class EtlapDB {
             pStmtOsszes.setInt(1, szazalek);
             int sikeresEOsszes = pStmtOsszes.executeUpdate();
             return sikeresEOsszes;
-        }
-        else {
+        } else {
             String sqlEgyedi = "UPDATE etlap SET ar = ar + ar * (?/100) WHERE id = ?";
             PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
             pStmtEgyedi.setInt(1, szazalek);
@@ -74,13 +68,21 @@ public class EtlapDB {
             pStmtOsszes.setInt(1, forintErtek);
             int sikeresEOsszes = pStmtOsszes.executeUpdate();
             return sikeresEOsszes;
-        }
-        else {
+        } else {
             String sqlEgyedi = "UPDATE etlap SET ar = ar + ? WHERE id = ?";
             PreparedStatement pStmtEgyedi = dbConn.prepareStatement(sqlEgyedi);
             pStmtEgyedi.setInt(1, forintErtek);
             pStmtEgyedi.setInt(2, selectedIndex);
             int sikeresEEgyedi = pStmtEgyedi.executeUpdate();
             return sikeresEEgyedi;
-        }    }
+        }
+    }
+
+    public boolean katTorlese(int id) throws SQLException {
+        String sql = "DELETE FROM kategoria WHERE id = ?";
+        PreparedStatement pStmt = dbConn.prepareStatement(sql);
+        pStmt.setInt(1, id);
+        int erintettSorok = pStmt.executeUpdate();
+        return erintettSorok == 1;
+    }
 }

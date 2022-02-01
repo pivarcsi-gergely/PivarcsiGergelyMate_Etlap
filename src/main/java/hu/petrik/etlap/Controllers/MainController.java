@@ -42,6 +42,10 @@ public class MainController extends Controller {
     public TableView<Kategoria> KategoriaTable;
     @FXML
     public TableColumn<Kategoria, String> colKategoriaNev;
+    @FXML
+    public Button KatHozzaadBtn;
+    @FXML
+    public Button KatTorlesBtn;
 
     @FXML
     private Label leirasLbl;
@@ -80,13 +84,17 @@ public class MainController extends Controller {
     }
 
     public void kategoriaListaFeltolt() {
-        kategoriaHashSet = Kategoria.getKategoriaHashSet();
-        KategoriaTable.getItems().clear();
-        for (Kategoria kategoria : kategoriaHashSet) {
-            KategoriaTable.getItems().add(kategoria);
+        try {
+            Kategoria.initalize(db);
+            kategoriaHashSet = Kategoria.getKategoriaHashSet();
+            KategoriaTable.getItems().clear();
+            for (Kategoria kategoria : kategoriaHashSet) {
+                KategoriaTable.getItems().add(kategoria);
+            }
         }
-
-
+        catch (SQLException e) {
+            hibaKiir(e);
+        }
     }
 
     public void onRowClick(MouseEvent mouseEvent) {
@@ -143,10 +151,10 @@ public class MainController extends Controller {
         } else {
             try {
                 db.etelTorlese(torlendoEtel.getId());
-                alert("Sikeres törlés");
+                alert("Sikeres törlés!");
                 etlapListaFeltolt();
             } catch (SQLException e) {
-                alert("Sikertelen törlés");
+                alert("Sikertelen törlés!");
             }
         }
     }
@@ -158,6 +166,30 @@ public class MainController extends Controller {
             insertAblak.getStage().show();
         } catch (Exception e) {
             hibaKiir(e);
+        }
+    }
+
+    public void onKatHozzaadClick(ActionEvent actionEvent) {
+    }
+
+    public void onKatTorlesClick(ActionEvent actionEvent) {
+        int selectedIndex = KategoriaTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            alert("Nem tudod a semmit kitörölni.");
+            return;
+        }
+
+        Kategoria torlendoKat = KategoriaTable.getSelectionModel().getSelectedItem();
+        if (!confirm("Biztosan törölni szeretnéd ezt a kategóriát: " + torlendoKat.getNev() + "?")) {
+            return;
+        } else {
+            try {
+                db.katTorlese(torlendoKat.getId());
+                alert("Sikeres törlés!");
+                kategoriaListaFeltolt();
+            } catch (SQLException e) {
+                alert("Sikertelen törlés!");
+            }
         }
     }
 }
