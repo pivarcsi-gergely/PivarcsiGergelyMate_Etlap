@@ -26,13 +26,13 @@ public class EtlapDB {
         return etlapList;
     }
 
-    public int etelHozzaadasa(String nev, String leiras, int ar, String kategoria) throws SQLException {
-        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria) VALUES (?,?,?,?)";
+    public int etelHozzaadasa(String nev, String leiras, int ar, Kategoria kategoria) throws SQLException {
+        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria_id) VALUES (?,?,?,?)";
         PreparedStatement pStmt = dbConn.prepareStatement(sql);
         pStmt.setString(1, nev);
         pStmt.setString(2, leiras);
         pStmt.setInt(3, ar);
-        pStmt.setString(4, kategoria);
+        pStmt.setInt(4, kategoria.getId());
         return pStmt.executeUpdate();
     }
 
@@ -84,5 +84,12 @@ public class EtlapDB {
         pStmt.setInt(1, id);
         int erintettSorok = pStmt.executeUpdate();
         return erintettSorok == 1;
+    }
+
+    public int katHozzaadasa(String katNev) throws SQLException {
+        String sql = "INSERT INTO kategoria(nev) VALUES (?)";
+        PreparedStatement pStmt = dbConn.prepareStatement(sql);
+        pStmt.setString(1, katNev);
+        return pStmt.executeUpdate();
     }
 }

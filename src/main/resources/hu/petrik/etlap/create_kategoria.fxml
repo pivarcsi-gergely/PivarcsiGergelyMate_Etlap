@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<GridPane alignment="TOP_RIGHT"
+          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="300.0"
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="hu.petrik.etlap.Controllers.CreateKatController">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints/>
+    </rowConstraints>
+    <TextField fx:id="TFNev" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+               prefWidth="150.0" promptText="Előfőétel..." GridPane.columnIndex="1"/>
+    <Button fx:id="ConfirmBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            mnemonicParsing="false" onAction="#onConfirmClicked" prefWidth="300.0" text="Hozzáad"
+            GridPane.columnSpan="2" GridPane.rowIndex="4"/>
+    <Label text="Kategória neve" GridPane.rowIndex="0">
+        <padding>
+            <Insets right="5.0"/>
+        </padding>
+    </Label>
+</GridPane>

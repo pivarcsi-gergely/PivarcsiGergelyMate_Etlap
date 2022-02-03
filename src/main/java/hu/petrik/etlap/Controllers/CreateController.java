@@ -3,12 +3,15 @@ package hu.petrik.etlap.Controllers;
 import hu.petrik.etlap.Controller;
 import hu.petrik.etlap.EtlapApp;
 import hu.petrik.etlap.EtlapDB;
+import hu.petrik.etlap.Kategoria;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+
+import java.util.HashSet;
 
 public class CreateController extends Controller {
     @FXML
@@ -18,9 +21,14 @@ public class CreateController extends Controller {
     @FXML
     public Spinner<Integer> SpinnerAr;
     @FXML
-    public ChoiceBox<String> CBKategoria;
+    public ChoiceBox<Kategoria> CBKategoria;
     @FXML
     public Button ConfirmBtn;
+
+    public void initialize() {
+        HashSet<Kategoria> kategoriaHashSet = Kategoria.getKategoriaHashSet();
+        CBKategoria.getItems().addAll(kategoriaHashSet);
+    }
 
     @FXML
     public void onConfirmClicked(ActionEvent actionEvent) {
@@ -49,8 +57,7 @@ public class CreateController extends Controller {
             alert("Kategória kiválasztása kötelező.");
             return;
         }
-
-        String kategoria = CBKategoria.getValue();
+        Kategoria kategoria = CBKategoria.getValue();
 
         try {
             EtlapDB etlapDB = new EtlapDB();
@@ -64,4 +71,4 @@ public class CreateController extends Controller {
             hibaKiir(e);
         }
     }
-    }
+}

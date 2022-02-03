@@ -56,46 +56,47 @@
             <Button fx:id="FtEmeloBtn" layoutX="170.0" layoutY="39.0" mnemonicParsing="false" onAction="#onFtClicked" text="Emelés (Ft)" />
         </AnchorPane>
     </TitledPane>
-   <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
-     <tabs>
-       <Tab text="Tábla">
-         <content>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                      <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onRowClick" prefHeight="260.0" prefWidth="490.0">
-                          <columns>
-                              <TableColumn fx:id="colNev" prefWidth="220.0" text="Név" />
-                              <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória" />
-                              <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár" />
-                          </columns>
-                      </TableView>
-                      <Label fx:id="leirasLbl" alignment="CENTER" contentDisplay="TEXT_ONLY" layoutX="5.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="480.0" text="Adott étel leírása" textAlignment="CENTER">
-                        <padding>
-                           <Insets top="10.0" />
-                        </padding>
-                     </Label>
-                  </children>
-               </AnchorPane>
-         </content>
-       </Tab>
-       <Tab text="Kategória">
-         <content>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <TableView fx:id="KategoriaTable" prefHeight="260.0" prefWidth="490.0">
-                       <columns>
-                         <TableColumn fx:id="colKategoriaNev" minWidth="30.0" prefWidth="490.0" text="Kategóriák" />
-                       </columns>
-                     </TableView>
-                     <Button fx:id="KatHozzaadBtn" layoutX="100.0" layoutY="270.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onKatHozzaadClick" prefHeight="30.0" prefWidth="90.0" text="Hozzáadás" />
-                     <Button fx:id="KatTorlesBtn" layoutX="300.0" layoutY="270.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onKatTorlesClick" prefHeight="30.0" prefWidth="90.0" text="Törlés">
-                        <opaqueInsets>
-                           <Insets />
-                        </opaqueInsets>
-                     </Button>
-                  </children></AnchorPane>
-         </content>
-       </Tab>
-     </tabs>
-   </TabPane>
+    <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0"
+             prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Tábla">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                           minWidth="-Infinity" onMouseClicked="#onRowClick" prefHeight="260.0" prefWidth="490.0">
+                    <columns>
+                        <TableColumn fx:id="colNev" prefWidth="220.0" text="Név"/>
+                        <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória"/>
+                        <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár"/>
+                    </columns>
+                </TableView>
+                <Label fx:id="leirasLbl" alignment="CENTER" contentDisplay="TEXT_ONLY" layoutX="5.0"
+                       layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                       minWidth="-Infinity" prefWidth="480.0" text="Adott étel leírása" textAlignment="CENTER">
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </Label>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Kategória">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <TableView fx:id="KategoriaTable" prefHeight="260.0" prefWidth="490.0">
+                    <columns>
+                        <TableColumn fx:id="colKategoriaNev" minWidth="30.0" prefWidth="490.0" text="Kategóriák"/>
+                    </columns>
+                </TableView>
+                <Button fx:id="KatHozzaadBtn" layoutX="100.0" layoutY="270.0" maxHeight="-Infinity"
+                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#onKatHozzaadClick" prefHeight="30.0" prefWidth="90.0" text="Hozzáadás"/>
+                <Button fx:id="KatTorlesBtn" layoutX="300.0" layoutY="270.0" maxHeight="-Infinity"
+                        maxWidth="-Infinity"
+                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#onKatTorlesClick"
+                        prefHeight="30.0" prefWidth="90.0" text="Törlés">
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </Button>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
 </VBox>

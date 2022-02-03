@@ -15,40 +15,25 @@ import java.util.HashSet;
 import java.util.List;
 
 public class MainController extends Controller {
-    @FXML
-    private Button AddBtn;
-    @FXML
-    private Button DeleteBtn;
+    @FXML private Button AddBtn;
+    @FXML private Button DeleteBtn;
 
-    @FXML
-    private Button SzazalekEmeloBtn;
-    @FXML
-    private Spinner<Integer> szazalekEmeloSpinner;
-    @FXML
-    private Button FtEmeloBtn;
-    @FXML
-    private Spinner<Integer> FtEmeloSpinner;
+    @FXML private Button SzazalekEmeloBtn;
+    @FXML private Spinner<Integer> szazalekEmeloSpinner;
+    @FXML private Button FtEmeloBtn;
+    @FXML private Spinner<Integer> FtEmeloSpinner;
 
-    @FXML
-    private TableView<Etlap> EtlapTable;
-    @FXML
-    private TableColumn<Etlap, String> colNev;
-    @FXML
-    private TableColumn<Etlap, Integer> colAr;
-    @FXML
-    private TableColumn<Etlap, Kategoria> colKategoria;
+    @FXML private TableView<Etlap> EtlapTable;
+    @FXML private TableColumn<Etlap, String> colNev;
+    @FXML private TableColumn<Etlap, Integer> colAr;
+    @FXML private TableColumn<Etlap, Kategoria> colKategoria;
 
-    @FXML
-    public TableView<Kategoria> KategoriaTable;
-    @FXML
-    public TableColumn<Kategoria, String> colKategoriaNev;
-    @FXML
-    public Button KatHozzaadBtn;
-    @FXML
-    public Button KatTorlesBtn;
+    @FXML public TableView<Kategoria> KategoriaTable;
+    @FXML public TableColumn<Kategoria, String> colKategoriaNev;
+    @FXML public Button KatHozzaadBtn;
+    @FXML public Button KatTorlesBtn;
 
-    @FXML
-    private Label leirasLbl;
+    @FXML private Label leirasLbl;
 
     private EtlapDB db;
     private List<Etlap> etlapList;
@@ -64,16 +49,16 @@ public class MainController extends Controller {
         try {
             db = new EtlapDB();
             Kategoria.initalize(db);
-            etlapListaFeltolt();
-            kategoriaListaFeltolt();
+            etlapListaFeltolt(db);
+            kategoriaListaFeltolt(db);
         } catch (SQLException e) {
             hibaKiir(e);
         }
     }
 
-    public void etlapListaFeltolt() {
+    public void etlapListaFeltolt(EtlapDB etlapDB) {
         try {
-            etlapList = db.getEtlap();
+            etlapList = etlapDB.getEtlap();
             EtlapTable.getItems().clear();
             for (Etlap etlap : etlapList) {
                 EtlapTable.getItems().add(etlap);
@@ -83,9 +68,9 @@ public class MainController extends Controller {
         }
     }
 
-    public void kategoriaListaFeltolt() {
+    public void kategoriaListaFeltolt(EtlapDB etlapDB) {
         try {
-            Kategoria.initalize(db);
+            Kategoria.initalize(etlapDB);
             kategoriaHashSet = Kategoria.getKategoriaHashSet();
             KategoriaTable.getItems().clear();
             for (Kategoria kategoria : kategoriaHashSet) {
@@ -107,7 +92,7 @@ public class MainController extends Controller {
     }
 
     public void onSzazClicked(ActionEvent actionEvent) throws SQLException {
-        int szazalek = 0;
+        int szazalek;
         try {
             szazalek = szazalekEmeloSpinner.getValue();
         } catch (NullPointerException e) {
@@ -119,11 +104,11 @@ public class MainController extends Controller {
         }
         int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
         db.etelNovelSzazalek(szazalek, selectedIndex);
-        etlapListaFeltolt();
+        etlapListaFeltolt(db);
     }
 
     public void onFtClicked(ActionEvent actionEvent) throws SQLException {
-        int ft = 0;
+        int ft;
         try {
             ft = FtEmeloSpinner.getValue();
         } catch (NullPointerException e) {
@@ -135,7 +120,7 @@ public class MainController extends Controller {
         }
         int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
         db.etelNovelForint(ft, selectedIndex);
-        etlapListaFeltolt();
+        etlapListaFeltolt(db);
     }
 
     public void onDeleteClicked(ActionEvent actionEvent) {
@@ -152,7 +137,7 @@ public class MainController extends Controller {
             try {
                 db.etelTorlese(torlendoEtel.getId());
                 alert("Sikeres törlés!");
-                etlapListaFeltolt();
+                etlapListaFeltolt(db);
             } catch (SQLException e) {
                 alert("Sikertelen törlés!");
             }
@@ -162,7 +147,7 @@ public class MainController extends Controller {
     public void onInsertEtelClicked(ActionEvent actionEvent) {
         try {
             Controller insertAblak = ujAblak("create_etlap.fxml", "Étel hozzáadása", 300, 200);
-            insertAblak.getStage().setOnCloseRequest(windowEvent -> etlapListaFeltolt());
+            insertAblak.getStage().setOnCloseRequest(windowEvent -> etlapListaFeltolt(db));
             insertAblak.getStage().show();
         } catch (Exception e) {
             hibaKiir(e);
@@ -170,6 +155,13 @@ public class MainController extends Controller {
     }
 
     public void onKatHozzaadClick(ActionEvent actionEvent) {
+        try {
+            Controller insertAblak = ujAblak("create_kategoria.fxml", "Kategória hozzáadása", 300, 200);
+            insertAblak.getStage().setOnCloseRequest(windowEvent -> kategoriaListaFeltolt(db));
+            insertAblak.getStage().show();
+        } catch (Exception e) {
+            hibaKiir(e);
+        }
     }
 
     public void onKatTorlesClick(ActionEvent actionEvent) {
@@ -186,7 +178,7 @@ public class MainController extends Controller {
             try {
                 db.katTorlese(torlendoKat.getId());
                 alert("Sikeres törlés!");
-                kategoriaListaFeltolt();
+                kategoriaListaFeltolt(db);
             } catch (SQLException e) {
                 alert("Sikertelen törlés!");
             }
