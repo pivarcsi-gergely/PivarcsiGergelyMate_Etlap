@@ -9,7 +9,7 @@ public class Kategoria {
     static private HashSet<Kategoria> kategoriaHashSet;
     static Connection conn;
 
-    public static void initalize(EtlapDB etlapDB) throws SQLException {
+    public static void initialize(EtlapDB etlapDB) throws SQLException {
         conn = etlapDB.dbConn;
         kategoriaHashSet = new HashSet<>();
         Statement katStmt = conn.createStatement();

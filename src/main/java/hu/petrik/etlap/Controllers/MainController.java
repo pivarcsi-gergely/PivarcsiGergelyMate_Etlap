@@ -48,7 +48,7 @@ public class MainController extends Controller {
 
         try {
             db = new EtlapDB();
-            Kategoria.initalize(db);
+            Kategoria.initialize(db);
             etlapListaFeltolt(db);
             kategoriaListaFeltolt(db);
         } catch (SQLException e) {
@@ -70,7 +70,7 @@ public class MainController extends Controller {
 
     public void kategoriaListaFeltolt(EtlapDB etlapDB) {
         try {
-            Kategoria.initalize(etlapDB);
+            Kategoria.initialize(etlapDB);
             kategoriaHashSet = Kategoria.getKategoriaHashSet();
             KategoriaTable.getItems().clear();
             for (Kategoria kategoria : kategoriaHashSet) {
