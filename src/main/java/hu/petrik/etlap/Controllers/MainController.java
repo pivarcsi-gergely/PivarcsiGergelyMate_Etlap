@@ -14,30 +14,50 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 
+import static hu.petrik.etlap.Kategoria.DEFAULT_KATEGORIA;
+
 public class MainController extends Controller {
-    @FXML private Button AddBtn;
-    @FXML private Button DeleteBtn;
+    @FXML
+    private Button AddBtn;
+    @FXML
+    private Button DeleteBtn;
+    @FXML
+    private ChoiceBox<Kategoria> CBSzuro;
 
-    @FXML private Button SzazalekEmeloBtn;
-    @FXML private Spinner<Integer> szazalekEmeloSpinner;
-    @FXML private Button FtEmeloBtn;
-    @FXML private Spinner<Integer> FtEmeloSpinner;
+    @FXML
+    private Button SzazalekEmeloBtn;
+    @FXML
+    private Spinner<Integer> szazalekEmeloSpinner;
+    @FXML
+    private Button FtEmeloBtn;
+    @FXML
+    private Spinner<Integer> FtEmeloSpinner;
 
-    @FXML private TableView<Etlap> EtlapTable;
-    @FXML private TableColumn<Etlap, String> colNev;
-    @FXML private TableColumn<Etlap, Integer> colAr;
-    @FXML private TableColumn<Etlap, Kategoria> colKategoria;
+    @FXML
+    private TableView<Etlap> EtlapTable;
+    @FXML
+    private TableColumn<Etlap, String> colNev;
+    @FXML
+    private TableColumn<Etlap, Integer> colAr;
+    @FXML
+    private TableColumn<Etlap, Kategoria> colKategoria;
 
-    @FXML public TableView<Kategoria> KategoriaTable;
-    @FXML public TableColumn<Kategoria, String> colKategoriaNev;
-    @FXML public Button KatHozzaadBtn;
-    @FXML public Button KatTorlesBtn;
+    @FXML
+    private TableView<Kategoria> KategoriaTable;
+    @FXML
+    private TableColumn<Kategoria, String> colKategoriaNev;
+    @FXML
+    private Button KatHozzaadBtn;
+    @FXML
+    private Button KatTorlesBtn;
 
-    @FXML private Label leirasLbl;
+    @FXML
+    private Label leirasLbl;
 
     private EtlapDB db;
     private List<Etlap> etlapList;
     private HashSet<Kategoria> kategoriaHashSet;
+
 
     public void initialize() {
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
@@ -49,8 +69,10 @@ public class MainController extends Controller {
         try {
             db = new EtlapDB();
             Kategoria.initialize(db);
-            etlapListaFeltolt(db);
+            kategoriaHashSet = Kategoria.getKategoriaHashSet();
+            CBSzuro.getItems().addAll(kategoriaHashSet);
             kategoriaListaFeltolt(db);
+            etlapListaFeltolt(db);
         } catch (SQLException e) {
             hibaKiir(e);
         }
@@ -69,16 +91,9 @@ public class MainController extends Controller {
     }
 
     public void kategoriaListaFeltolt(EtlapDB etlapDB) {
-        try {
-            Kategoria.initialize(etlapDB);
-            kategoriaHashSet = Kategoria.getKategoriaHashSet();
-            KategoriaTable.getItems().clear();
-            for (Kategoria kategoria : kategoriaHashSet) {
-                KategoriaTable.getItems().add(kategoria);
-            }
-        }
-        catch (SQLException e) {
-            hibaKiir(e);
+        KategoriaTable.getItems().clear();
+        for (Kategoria kategoria : kategoriaHashSet) {
+            KategoriaTable.getItems().add(kategoria);
         }
     }
 
@@ -118,7 +133,7 @@ public class MainController extends Controller {
             alert("0 vagy annál kisebb értékkel nem tudod növelni az árat");
             return;
         }
-        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex() + 1;
+        int selectedIndex = EtlapTable.getSelectionModel().getSelectedIndex();
         db.etelNovelForint(ft, selectedIndex);
         etlapListaFeltolt(db);
     }
@@ -181,6 +196,23 @@ public class MainController extends Controller {
                 kategoriaListaFeltolt(db);
             } catch (SQLException e) {
                 alert("Sikertelen törlés!");
+            }
+        }
+    }
+
+    public void onSzures(ActionEvent actionEvent) {
+        Kategoria kivalaszottKat = Kategoria.fromNev(CBSzuro.getSelectionModel().getSelectedItem().toString());
+        if (kivalaszottKat.getId() == 0) {
+            etlapListaFeltolt(db);
+        } else {
+            try {
+                etlapList = db.szures(kivalaszottKat.getId());
+                EtlapTable.getItems().clear();
+                for (Etlap etlap : etlapList) {
+                    EtlapTable.getItems().add(etlap);
+                }
+            } catch (SQLException e) {
+                hibaKiir(e);
             }
         }
     }

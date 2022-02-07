@@ -8,6 +8,7 @@ public class Kategoria {
     private String nev;
     static private HashSet<Kategoria> kategoriaHashSet;
     static Connection conn;
+    public static Kategoria DEFAULT_KATEGORIA = new Kategoria(0, "nincs szűrés");
 
     public static void initialize(EtlapDB etlapDB) throws SQLException {
         conn = etlapDB.dbConn;
@@ -15,7 +16,7 @@ public class Kategoria {
         Statement katStmt = conn.createStatement();
         String katSql = "SELECT * FROM kategoria";
         ResultSet katResult = katStmt.executeQuery(katSql);
-
+        kategoriaHashSet.add(DEFAULT_KATEGORIA);
         while (katResult.next()) {
             Kategoria kategoria = new Kategoria(katResult.getInt("id"),
                                                 katResult.getString("nev"));

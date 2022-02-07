@@ -20,7 +20,9 @@ public class EtlapDB {
         ResultSet result = stmt.executeQuery(sql);
 
         while (result.next()) {
-            Etlap etlap = new Etlap(result.getInt("id"), result.getString("nev"), result.getString("leiras"), result.getInt("ar"), Kategoria.fromId(result.getInt("kategoria_id")));
+            Etlap etlap = new Etlap(result.getInt("id"), result.getString("nev"),
+                    result.getString("leiras"), result.getInt("ar"),
+                    Kategoria.fromId(result.getInt("kategoria_id")));
             etlapList.add(etlap);
         }
         return etlapList;
@@ -45,7 +47,7 @@ public class EtlapDB {
     }
 
     public int etelNovelSzazalek(int szazalek, int selectedIndex) throws SQLException {
-        if (selectedIndex == 0) {
+        if (selectedIndex == -1) {
             String sqlOsszes = "UPDATE etlap SET ar = ar + ar * (?/100)";
             PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
             pStmtOsszes.setInt(1, szazalek);
@@ -62,7 +64,7 @@ public class EtlapDB {
     }
 
     public int etelNovelForint(int forintErtek, int selectedIndex) throws SQLException {
-        if (selectedIndex == 0) {
+        if (selectedIndex == -1) {
             String sqlOsszes = "UPDATE etlap SET ar = ar + ?";
             PreparedStatement pStmtOsszes = dbConn.prepareStatement(sqlOsszes);
             pStmtOsszes.setInt(1, forintErtek);
@@ -91,5 +93,24 @@ public class EtlapDB {
         PreparedStatement pStmt = dbConn.prepareStatement(sql);
         pStmt.setString(1, katNev);
         return pStmt.executeUpdate();
+    }
+
+
+    public List<Etlap> szures(int katId) throws SQLException {
+        List<Etlap> etlapList = new ArrayList<>();
+        String sql = "SELECT * FROM etlap WHERE kategoria_id = ?";
+        PreparedStatement pStmt = dbConn.prepareStatement(sql);
+        pStmt.setInt(1, katId);
+
+        ResultSet rset = pStmt.executeQuery();
+
+        while (rset.next()) {
+            Etlap etlap = new Etlap(rset.getInt("id"), rset.getString("nev"),
+                    rset.getString("leiras"), rset.getInt("ar"),
+                    Kategoria.fromId(rset.getInt("kategoria_id")));
+            etlapList.add(etlap);
+        }
+
+        return etlapList;
     }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
@@ -20,9 +21,11 @@
     </padding>
     <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="490.0">
         <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Adatok kezelése">
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="200.0">
                 <Button fx:id="AddBtn" layoutX="45.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onInsertEtelClicked" prefHeight="30.0" prefWidth="110.0" text="Új étel felvétele" />
-                <Button fx:id="DeleteBtn" layoutX="45.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDeleteClicked" prefHeight="30.0" prefWidth="110.0" text="Törlés" />
+                <Button fx:id="DeleteBtn" layoutX="45.0" layoutY="32.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDeleteClicked" prefHeight="30.0" prefWidth="110.0" text="Törlés" />
+                <ChoiceBox fx:id="CBSzuro" onAction="#onSzures" layoutX="25.0" layoutY="62.0" prefWidth="150.0">
+                </ChoiceBox>
             </AnchorPane>
         </TitledPane>
     </HBox>
@@ -56,23 +59,19 @@
             <Button fx:id="FtEmeloBtn" layoutX="170.0" layoutY="39.0" mnemonicParsing="false" onAction="#onFtClicked" text="Emelés (Ft)" />
         </AnchorPane>
     </TitledPane>
-    <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0"
-             prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
         <Tab text="Tábla">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                           minWidth="-Infinity" onMouseClicked="#onRowClick" prefHeight="260.0" prefWidth="490.0">
+                <TableView fx:id="EtlapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onRowClick" prefHeight="260.0" prefWidth="490.0">
                     <columns>
-                        <TableColumn fx:id="colNev" prefWidth="220.0" text="Név"/>
-                        <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória"/>
-                        <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár"/>
+                        <TableColumn fx:id="colNev" prefWidth="220.0" text="Név" />
+                        <TableColumn fx:id="colKategoria" prefWidth="150.0" text="Kategória" />
+                        <TableColumn fx:id="colAr" prefWidth="120.0" text="Ár" />
                     </columns>
                 </TableView>
-                <Label fx:id="leirasLbl" alignment="CENTER" contentDisplay="TEXT_ONLY" layoutX="5.0"
-                       layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                       minWidth="-Infinity" prefWidth="480.0" text="Adott étel leírása" textAlignment="CENTER">
+                <Label fx:id="leirasLbl" alignment="CENTER" contentDisplay="TEXT_ONLY" layoutX="5.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="480.0" text="Adott étel leírása" textAlignment="CENTER">
                     <padding>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </padding>
                 </Label>
             </AnchorPane>
@@ -81,19 +80,13 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <TableView fx:id="KategoriaTable" prefHeight="260.0" prefWidth="490.0">
                     <columns>
-                        <TableColumn fx:id="colKategoriaNev" minWidth="30.0" prefWidth="490.0" text="Kategóriák"/>
+                        <TableColumn fx:id="colKategoriaNev" minWidth="30.0" prefWidth="490.0" text="Kategóriák" />
                     </columns>
                 </TableView>
-                <Button fx:id="KatHozzaadBtn" layoutX="100.0" layoutY="270.0" maxHeight="-Infinity"
-                        maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                        onAction="#onKatHozzaadClick" prefHeight="30.0" prefWidth="90.0" text="Hozzáadás"/>
-                <Button fx:id="KatTorlesBtn" layoutX="300.0" layoutY="270.0" maxHeight="-Infinity"
-                        maxWidth="-Infinity"
-                        minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
-                        onAction="#onKatTorlesClick"
-                        prefHeight="30.0" prefWidth="90.0" text="Törlés">
+                <Button fx:id="KatHozzaadBtn" layoutX="100.0" layoutY="270.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onKatHozzaadClick" prefHeight="30.0" prefWidth="90.0" text="Hozzáadás" />
+                <Button fx:id="KatTorlesBtn" layoutX="300.0" layoutY="270.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onKatTorlesClick" prefHeight="30.0" prefWidth="90.0" text="Törlés">
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                 </Button>
             </AnchorPane>

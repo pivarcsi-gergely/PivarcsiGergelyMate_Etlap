@@ -34,7 +34,7 @@ public class CreateController extends Controller {
     public void onConfirmClicked(ActionEvent actionEvent) {
         String nev = TFNev.getText();
         String leiras = TFLeiras.getText();
-        int ar = 0;
+        int ar;
         int kategoriaIndex = CBKategoria.getSelectionModel().getSelectedIndex();
         if (nev.isEmpty()) {
             alert("Név megadása kötelező.");
